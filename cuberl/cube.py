@@ -37,11 +37,25 @@ to-do
 - Keep track of sticker ID numbers and orientations to show that seemingly unchanged parts of big cubes have had cubie swaps or stickers rotated.
 - Figure out a physical "cubie" model to replace the "sticker" model.
 """
-
+from enum import Enum
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 from matplotlib.patches import Polygon
+
+class Actions(Enum):
+    U = {"name": "U", "f": "U", "d": 1, "opposite": "U_1"},
+    U_1 = {"name": "U'", "f": "U", "d": -1, "opposite": "U"},
+    D = {"name": "D", "f": "D", "d": 1, "opposite": "D_1"},
+    D_1 = {"name": "D'", "f": "D", "d": -1, "opposite": "D"},
+    F = {"name": "F", "f": "F", "d": 1, "opposite": "F_1"},
+    F_1 = {"name": "F'", "f": "F", "d": -1, "opposite": "F"},
+    B = {"name": "B", "f": "B", "d": 1, "opposite": "B_1"},
+    B_1 = {"name": "B'", "f": "B", "d": -1, "opposite": "B"},
+    R = {"name": "R", "f": "R", "d": 1, "opposite": "R_1"},
+    R_1 = {"name": "R'", "f": "R", "d": -1, "opposite": "R"},
+    L = {"name": "L", "f": "L", "d": 1, "opposite": "L_1"},
+    L_1 = {"name": "L'", "f": "L", "d": -1, "opposite": "L"},
 
 class Cube(object):
     """
@@ -51,6 +65,9 @@ class Cube(object):
     - `N`, the side length (the cube is `N`x`N`x`N`)
     - optional `whiteplastic=True` if you like white cubes
     """
+    # action
+    action_names = [a.name for a in Actions]
+
     facedict = {"U":0, "D":1, "F":2, "B":3, "R":4, "L":5}
     dictface = dict([(v, k) for k, v in facedict.items()])
     normals = [np.array([0., 1., 0.]), np.array([0., -1., 0.]),
@@ -137,7 +154,7 @@ class Cube(object):
                 self.stickers[i] = np.rot90(self.stickers[i], 3)
             if l == self.N - 1:
                 self.stickers[i2] = np.rot90(self.stickers[i2], 1)
-        print "moved", f, l, len(ds)
+        print("moved", f, l, len(ds))
         return None
 
     def _rotate(self, args):
