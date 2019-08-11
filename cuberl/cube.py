@@ -269,7 +269,8 @@ class Cube(object):
                     ha="center", va="center", rotation=20, fontsize=self.fontsize)
         return None
 
-    def render(self, flat=True, views=True):
+    # add argument for fig
+    def render(self, fig, flat=True, views=True):
         """
         Visualize the cube in a standard layout, including a flat,
         unwrapped view and three perspective views.
@@ -282,7 +283,9 @@ class Cube(object):
         if not views:
             xlim = (-1.2, 3.2)
             ylim = (-1.2, 2.2)
-        fig = plt.figure(figsize=((xlim[1] - xlim[0]) * self.N / 5., (ylim[1] - ylim[0]) * self.N / 5.))
+        # if fig is not True (is NONE) then do
+        if not fig:
+            fig = plt.figure(figsize=((xlim[1] - xlim[0]) * self.N / 5., (ylim[1] - ylim[0]) * self.N / 5.))
         ax = fig.add_axes((0, 0, 1, 1), frameon=False,
                           xticks=[], yticks=[])
         if views:
@@ -331,6 +334,7 @@ def swap_off_diagonal(cube, f, l1, l2):
     cube.move("U", 0, 1)
     cube.move(f, l2, -1)
     return None
+
 
 def checkerboard(cube):
     """
