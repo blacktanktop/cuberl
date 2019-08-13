@@ -391,17 +391,7 @@ if __name__ == "__main__":
     plt.ion()
     plt.show()
     fig = None
-    for i in range(20):
+    for i in range(5):
         c.render(fig, flat=False)
         plt.pause(0.1)
         c.move("F", 0, 1)
-#        c.move("F", 0, -1)
-#    c.turn("U", 1)
-#    c.move("U", 0, -1)
-#    swap_off_diagonal(c, "R", 2, 1)
-#    c.move("U", 0, 1)
-#    swap_off_diagonal(c, "R", 3, 2)
-#    checkerboard(c)
-#    for m in range(32):
-#        c.render(flat=False)#.savefig("test%02d.png" % m, dpi=865 / c.N)
-#        c.randomize(1)
