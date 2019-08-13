@@ -212,7 +212,7 @@ class Cube(object):
         csz = 2. / self.N
         x2 = 8.
         x1 = 0.5 * x2
-        for viewpoint, shift in [(np.array([-x1, -x1, x2]), np.array([-1.5, 3.])),
+        for viewpoint, shift in [(np.array([-x1, x1, x2]), np.array([-1.5, 3.])),
                                  (np.array([x1, x1, x2]), np.array([0.5, 3.])),
                                  (np.array([x2, x1, -x1]), np.array([2.5, 3.]))]:
             for f, i in self.facedict.items():
