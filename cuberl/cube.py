@@ -79,7 +79,7 @@ class Cube(object):
                np.array([0., 0., -1.]), np.array([0, 0., 1.])]
     colordict = {"w":0, "y":1, "b":2, "g":3, "o":4, "r":5}
     pltpos = [(0., 1.05), (0., -1.05), (0., 0.), (2.10, 0.), (1.05, 0.), (-1.05, 0.)]
-    labelcolor = "#7f00ff"
+    labelcolor = "#00fffb"
 
     def __init__(self, N, whiteplastic=False):
         """
@@ -94,8 +94,9 @@ class Cube(object):
             self.plasticcolor = "#dfdfdf"
         else:
             self.plasticcolor = "#1f1f1f"
-        self.fontsize = 12. * (self.N / 5.)
-        return None
+        self.fontsize = 24. * (self.N / 5.)
+        self.solved_score = self.score()
+        #return None
 
     def turn(self, f, d):
         """
@@ -269,7 +270,7 @@ class Cube(object):
                     ha="center", va="center", rotation=20, fontsize=self.fontsize)
         return None
 
-    # add argument for fig
+    # Add argument for fig
     def render(self, fig, flat=True, views=True):
         """
         Visualize the cube in a standard layout, including a flat,
@@ -295,6 +296,38 @@ class Cube(object):
         ax.set_xlim(xlim)
         ax.set_ylim(ylim)
         return fig
+
+    # Add score function
+    def score(self):
+        """
+        Calculate cube distance from solution
+        """
+        temp_score = 1
+        for i in range(6):
+            side = self.stickers[i]
+            side_color = side[1][1]
+            side_score = 0
+            for x in range(3):
+                for y in range(3):
+                    if side[x][y] == side_color:
+                        side_score += 1
+            temp_score *= side_score
+        return temp_score
+    ### Functions required for gym base function (step)
+    def move_by_action(self, action):
+        # action = self.actions.get(action_name)
+        f = action.value[0].get("f")
+        d = action.value[0].get("d")
+        self.move(f, 0, d)
+
+    def solved(self, score):
+        return score == self.solved_score
+
+    def get_state(self):
+        return self.stickers
+
+    def opposite_actions(self, previous_action_name, action):
+        return previous_action_name == action.value[0].get("opposite")
 
 def adjacent_edge_flip(cube):
     """
@@ -354,13 +387,21 @@ if __name__ == "__main__":
     Functional testing.
     """
     np.random.seed(42)
-    c = Cube(6, whiteplastic=False)
+    c = Cube(3, whiteplastic=False)
+    plt.ion()
+    plt.show()
+    fig = None
+    for i in range(20):
+        c.render(fig, flat=False)
+        plt.pause(0.1)
+        c.move("F", 0, 1)
+#        c.move("F", 0, -1)
 #    c.turn("U", 1)
 #    c.move("U", 0, -1)
 #    swap_off_diagonal(c, "R", 2, 1)
 #    c.move("U", 0, 1)
 #    swap_off_diagonal(c, "R", 3, 2)
 #    checkerboard(c)
-    for m in range(32):
-        c.render(flat=False).savefig("test%02d.png" % m, dpi=865 / c.N)
-        c.randomize(1)
+#    for m in range(32):
+#        c.render(flat=False)#.savefig("test%02d.png" % m, dpi=865 / c.N)
+#        c.randomize(1)
