@@ -299,9 +299,6 @@ class Cube(object):
 
     # Add score function
     def score(self):
-        """
-        Calculate cube distance from solution
-        """
         temp_score = 1
         for i in range(6):
             side = self.stickers[i]
@@ -315,12 +312,11 @@ class Cube(object):
         return temp_score
     ### Functions required for gym base function (step)
     def move_by_action(self, action):
-        # action = self.actions.get(action_name)
         f = action.value[0].get("f")
         d = action.value[0].get("d")
         self.move(f, 0, d)
 
-    def solved(self, score):
+    def is_solved(self, score):
         return score == self.solved_score
 
     def get_state(self):
