@@ -23,11 +23,11 @@ class CubeEnv3x3(gym.Env):
         self.scrambleSize = 1
         self.config()
 
-    def config(self, views=True, flat=True, cube=True, scramble_size=1):
+    def config(self, views=True, flat=True, render=True, scramble_size=1):
         self.renderViews = views
         self.renderFlat = flat
         self.scrambleSize = scramble_size
-        self.renderCube = cube
+        self.renderCube = render
 
         if self.renderCube:
             plt.ion()
