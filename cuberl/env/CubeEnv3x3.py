@@ -3,7 +3,7 @@ import numpy as np
 
 import gym
 from gym import spaces
-from cuberl.envs.cube import Actions, Cube
+from cuberl.env.cube import Actions, Cube
 
 
 class CubeEnv3x3(gym.Env):
