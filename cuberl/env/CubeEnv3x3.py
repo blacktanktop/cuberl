@@ -13,8 +13,8 @@ class CubeEnv3x3(gym.Env):
         self.cube = Cube(3, whiteplastic=False)
         self.action_space = spaces.Discrete(len(ACTION_LOOKUP))
         self.observation_space = spaces.Box(low=0, high=5, shape=(6, 3, 3), dtype=np.int32)
-        self.status = self.cube.score()
-        self.before_status = self.status
+        self.score = self.cube.score()
+        self.before_score = self.score
         self.fig = None
         self.scramble = []
         self.renderViews = True
@@ -34,19 +34,19 @@ class CubeEnv3x3(gym.Env):
             plt.show()
 
     def step(self, action):
-        self.status = self.cube.score()
+        self.score = self.cube.score()
+        n_state = self._state()
         reward = self._reward()
-        observation = self._observe()
-        done = self.cube.is_solved(self.status)
+        done = self.cube.is_solved(self.score)
         if done:
             print("Solved !!!")
-        return observation, reward, done, {}
+        return n_state, reward, done, {}
 
     def reset(self):
         self.cube = Cube(3, whiteplastic=False)
-        self.status = self.cube.score()
-        self.before_status = self.status
-        return self._observe()
+        self.score = self.cube.score()
+        self.before_score = self.score
+        return self._state()
 
     def render(self, mode='human', close=False):
         if self.renderCube:
@@ -56,13 +56,13 @@ class CubeEnv3x3(gym.Env):
     @staticmethod
 
     def _reward(self):
-        reward = self.status - self.before_status
+        reward = self.score - self.before_score
         if reward > 0:
-            self.before_status = self.status
+            self.before_score = self.score
             return reward - 1
         return -1
 
-    def _observe(self):
+    def _state(self):
         # get sticker
         return self.cube.get_state()
 
