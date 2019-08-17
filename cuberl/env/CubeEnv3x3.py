@@ -40,6 +40,7 @@ class CubeEnv3x3(gym.Env):
         return [seed]
 
     def step(self, action):
+        self._action(action)
         self.score = self.cube.score()
         n_state = self._state()
         reward = self._reward()
@@ -58,6 +59,9 @@ class CubeEnv3x3(gym.Env):
         if self.renderCube:
             self.fig = self.cube.render(self.fig, views=self.renderViews, flat=self.renderFlat)
             plt.pause(0.1)
+    
+    def _action(self, action):
+        self.cube.move_by_action(action)
 
     def scramble_check(self, action, before_actions):
         before_actions_count = len(before_actions)
