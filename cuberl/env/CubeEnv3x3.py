@@ -53,7 +53,7 @@ class CubeEnv3x3(gym.Env):
             self.fig = self.cube.render(self.fig, views=self.renderViews, flat=self.renderFlat)
             plt.pause(0.1)
 
-    @staticmethod
+    #@staticmethod
 
     def _reward(self):
         reward = self.score - self.before_score
