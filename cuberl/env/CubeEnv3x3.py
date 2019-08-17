@@ -17,7 +17,7 @@ class CubeEnv3x3(gym.Env):
         self.score = self.cube.score()
         self.before_score = self.score
         self.fig = None
-        self.scramble = []
+        self.scramble_list = []
         self.renderViews = True
         self.renderFlat = True
         self.renderCube = True
@@ -52,11 +52,11 @@ class CubeEnv3x3(gym.Env):
     def reset(self):
         # initialize
         self.cube = Cube(3, whiteplastic=False)
-        self.score = self.cube.score()
-    	self.scramble = []
         # scramble
-	if self.scrambleSize > 0:
-	    self.scramble(self.scrambleSize) 
+        self.scramble_list = []
+        if self.scrambleSize > 0:
+            self.scramble(self.scrambleSize)
+        self.score = self.cube.score()
         self.before_score = self.score
         return self._state()
 
@@ -85,9 +85,9 @@ class CubeEnv3x3(gym.Env):
         t = 0
         while t < n:
             action = ACTION_LOOKUP[np.random.randint(len(ACTION_LOOKUP.keys()))]
-            if self._scramble_check(action, self.scramble):
-                self.scramble.append(action.name)
-                self.cube.move_by_action(action)
+            if self.scramble_check(action, self.scramble_list):
+                self.scramble_list.append(action.name)
+                self.cube.action2move(action)
                 t += 1
     
     #@staticmethod
