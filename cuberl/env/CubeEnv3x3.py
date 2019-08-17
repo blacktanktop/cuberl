@@ -66,8 +66,8 @@ class CubeEnv3x3(gym.Env):
     def scramble_check(self, action, before_actions):
         before_actions_count = len(before_actions)
         # check action and opposite action (ex:F, F_1)
-        if num_before_actions > 1 \
-                and self.cube.opposite_actions(before_actions[before_actions_count - 1], action):
+        if before_actions_count > 1 \
+                and self.cube.opposite_action(before_actions[before_actions_count - 1], action):
             return False
         # check action 3 same action (ex:F, F, F)
         if before_actions_count > 2 \
