@@ -61,7 +61,7 @@ class CubeEnv3x3(gym.Env):
             plt.pause(0.1)
     
     def _action(self, action):
-        self.cube.move_by_action(ACTION_LOOKUP[action])
+        self.cube.action2move(ACTION_LOOKUP[action])
 
     def scramble_check(self, action, before_actions):
         before_actions_count = len(before_actions)
