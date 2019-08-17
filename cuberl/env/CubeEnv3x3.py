@@ -50,8 +50,13 @@ class CubeEnv3x3(gym.Env):
         return n_state, reward, done, {}
 
     def reset(self):
+        # initialize
         self.cube = Cube(3, whiteplastic=False)
         self.score = self.cube.score()
+    	self.scramble = []
+        # scramble
+	if self.scrambleSize > 0:
+	    self.scramble(self.scrambleSize) 
         self.before_score = self.score
         return self._state()
 
