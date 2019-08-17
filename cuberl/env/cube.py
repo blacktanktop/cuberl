@@ -322,7 +322,7 @@ class Cube(object):
     def get_state(self):
         return self.stickers
 
-    def opposite_actions(self, previous_action_name, action):
+    def opposite_action(self, previous_action_name, action):
         return previous_action_name == action.value[0].get("opposite")
 
 def adjacent_edge_flip(cube):
