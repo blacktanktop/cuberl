@@ -3,6 +3,7 @@ import numpy as np
 
 import gym
 from gym import spaces
+from gym.utils import seeding
 from cuberl.env.cube import Actions, Cube
 
 
@@ -22,6 +23,7 @@ class CubeEnv3x3(gym.Env):
         self.renderCube = True
         self.scrambleSize = 1
         self.config()
+        self.seed()
 
     def config(self, views=True, flat=True, render=True, scramble_size=1):
         self.renderViews = views
@@ -32,6 +34,10 @@ class CubeEnv3x3(gym.Env):
         if self.renderCube:
             plt.ion()
             plt.show()
+    
+    def seed(self, seed=None):
+        self.np_random, seed = seeding.np_random(seed)
+        return [seed]
 
     def step(self, action):
         self.score = self.cube.score()
@@ -52,7 +58,7 @@ class CubeEnv3x3(gym.Env):
         if self.renderCube:
             self.fig = self.cube.render(self.fig, views=self.renderViews, flat=self.renderFlat)
             plt.pause(0.1)
-
+    
     #@staticmethod
 
     def _reward(self):
