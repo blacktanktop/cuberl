@@ -1,1 +1,3 @@
 /.python-version
+/cuberl/__pycache__/
+/cuberl/env/__pycache__/
