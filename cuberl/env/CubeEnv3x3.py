@@ -87,10 +87,13 @@ class CubeEnv3x3(gym.Env):
             action = ACTION_LOOKUP[np.random.randint(len(ACTION_LOOKUP.keys()))]
             if self.scramble_check(action, self.scramble_list):
                 self.scramble_list.append(action.name)
+                print(self.scramble_list)
                 self.cube.action2move(action)
                 t += 1
     
-    #@staticmethod
+    @staticmethod
+    def action2name(action):
+        return ACTION_LOOKUP[action].name
 
     def _reward(self):
         reward = self.score - self.before_score
