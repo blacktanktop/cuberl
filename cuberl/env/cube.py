@@ -311,7 +311,7 @@ class Cube(object):
             temp_score *= side_score
         return temp_score
     ### Functions required for gym base function (step)
-    def move_by_action(self, action):
+    def action2move(self, action):
         f = action.value[0].get("f")
         d = action.value[0].get("d")
         self.move(f, 0, d)
