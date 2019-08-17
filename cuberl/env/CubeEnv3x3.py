@@ -58,6 +58,28 @@ class CubeEnv3x3(gym.Env):
         if self.renderCube:
             self.fig = self.cube.render(self.fig, views=self.renderViews, flat=self.renderFlat)
             plt.pause(0.1)
+
+    def scramble_check(self, action, before_actions):
+        before_actions_count = len(before_actions)
+        # check action and opposite action (ex:F, F_1)
+        if num_before_actions > 1 \
+                and self.cube.opposite_actions(before_actions[before_actions_count - 1], action):
+            return False
+        # check action 3 same action (ex:F, F, F)
+        if before_actions_count > 2 \
+                and before_actions[before_actions_count - 1] == before_actions[before_actions_count - 2] \
+                and action.name == before_actions[before_actions_count - 1]:
+            return False
+        return True
+
+    def scramble(self, n):
+        t = 0
+        while t < n:
+            action = ACTION_LOOKUP[np.random.randint(len(ACTION_LOOKUP.keys()))]
+            if self._scramble_check(action, self.scramble):
+                self.scramble.append(action.name)
+                self.cube.move_by_action(action)
+                t += 1
     
     #@staticmethod
 
