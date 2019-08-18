@@ -287,12 +287,11 @@ class Cube(object):
         # if fig is not True (is NONE) then do
         if not fig:
             fig = plt.figure(figsize=((xlim[1] - xlim[0]) * self.N / 5., (ylim[1] - ylim[0]) * self.N / 5.))
-        ax = fig.add_axes((0, 0, 1, 1), frameon=False,
-                          xticks=[], yticks=[])
+        ax = fig.add_axes((0, 0, 1, 1), frameon=False, xticks=[], yticks=[])
         if views:
             self.render_views(ax)
         if flat:
-            self.render_flat(ax)
+           self.render_flat(ax)
         ax.set_xlim(xlim)
         ax.set_ylim(ylim)
         return fig
