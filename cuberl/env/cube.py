@@ -388,5 +388,5 @@ if __name__ == "__main__":
     fig = None
     for i in range(5):
         c.render(fig, flat=False)
-        plt.pause(0.1)
+        plt.pause(0.001)
         c.move("F", 0, 1)

@@ -65,7 +65,7 @@ class CubeEnv3x3(gym.Env):
             # Measure CubeEnv3x3 render function at add_axes
             self.fig = None
             self.fig = self.cube.render(self.fig, views=self.renderViews, flat=self.renderFlat)
-            plt.pause(0.1)
+            plt.pause(0.001)
             plt.close()
     
     def _action(self, action):
