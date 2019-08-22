@@ -318,7 +318,7 @@ class Cube(object):
     def is_solved(self, score):
         return score == self.solved_score
 
-    def get_state(self):
+    def get_sticker(self):
         return self.stickers
 
     def opposite_action(self, previous_action_name, action):
