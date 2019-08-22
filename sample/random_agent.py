@@ -30,15 +30,17 @@ for episode in range(episode_count):
     action_list = []
     print("Episode ", episode)
     s = env.reset()
-    #print(s)
+    env.render()
+    print(s)
     #actions = []
     for step in range(max_steps):
-        s = env.render()
-        #print(s)
+        #s = env.render()
+        print(s)
         action = env.action_space.sample()
         n_state, reward, done, info = env.step(action)
         action_list.append(env.action2name(action))
-        
+        env.render()
+
         print("step ", step)
         print(action_list)
         #print(n_state)
@@ -57,5 +59,5 @@ for episode in range(episode_count):
         y.append(solved)
 
 print(x, y)
-#plt.plot(x, y)
-#plt.show()
+plt.plot(x, y)
+plt.show()
