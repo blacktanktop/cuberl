@@ -107,7 +107,10 @@ class CubeEnv3x3(gym.Env):
 
     def _state(self):
         # get sticker
-        return self.cube.get_state()
+        sticker = self.cube.get_state()
+        # from sticker to one-hot
+        state = np.identity(6)[sticker.reshape(-1)].astype('uint8')
+        return state
 
 
 ACTION_LOOKUP = {
