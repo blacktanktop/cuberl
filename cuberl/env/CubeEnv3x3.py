@@ -63,10 +63,10 @@ class CubeEnv3x3(gym.Env):
     def render(self, mode='human', close=False):
         if self.renderCube:
             # Measure CubeEnv3x3 render function at add_axes
-            self.fig = None
+            #self.fig == None:
             self.fig = self.cube.render(self.fig, views=self.renderViews, flat=self.renderFlat)
             plt.pause(0.001)
-            plt.close()
+            #plt.close()
     
     def _action(self, action):
         self.cube.action2move(ACTION_LOOKUP[action])

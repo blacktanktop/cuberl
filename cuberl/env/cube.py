@@ -285,9 +285,12 @@ class Cube(object):
             xlim = (-1.2, 3.2)
             ylim = (-1.2, 2.2)
         # if fig is not True (is NONE) then do
-        if not fig:
+        if fig != None:
+            plt.cla()
+            ax = fig.add_axes((0, 0, 1, 1), frameon=False, xticks=[], yticks=[])
+        else:
             fig = plt.figure(figsize=((xlim[1] - xlim[0]) * self.N / 5., (ylim[1] - ylim[0]) * self.N / 5.))
-        ax = fig.add_axes((0, 0, 1, 1), frameon=False, xticks=[], yticks=[])
+            ax = fig.add_axes((0, 0, 1, 1), frameon=False, xticks=[], yticks=[])
         if views:
             self.render_views(ax)
         if flat:
