@@ -107,7 +107,7 @@ class CubeEnv3x3(gym.Env):
 
     def _state(self):
         # get sticker
-        sticker = self.cube.get_state()
+        sticker = self.cube.get_stiker()
         # from sticker to one-hot
         state = np.identity(6)[sticker.reshape(-1)].astype('uint8')
         return state
