@@ -300,6 +300,8 @@ class Cube(object):
         return fig
 
     # Add score function
+    # Multiplying the number of correct positions on each side
+    # e.g solved state : 9 * 9 * 9 * 9 * 9 * 9
     def score(self):
         temp_score = 1
         for i in range(6):
