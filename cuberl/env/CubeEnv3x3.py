@@ -101,9 +101,12 @@ class CubeEnv3x3(gym.Env):
     def _reward(self):
         reward = self.score - self.before_score
         if reward > 0:
-            self.before_score = self.score
-            return reward - 1
-        return -1
+            return 1
+        else:
+            return 0
+        #    self.before_score = self.score
+        #    return reward - 1
+        #return -1
 
     def _state(self):
         # get sticker
