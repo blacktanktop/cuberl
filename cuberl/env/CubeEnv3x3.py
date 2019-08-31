@@ -31,7 +31,9 @@ class CubeEnv3x3(gym.Env):
         self.colordict = self.cube.colordict
         self.num_color = len(self.colordict.keys())
         self.state = self._state()
-
+        self.initial_state = self.state.copy()
+        self.action_list = [i for i in range(len(ACTION_LOOKUP))]
+        
     def config(self, views=True, flat=True, render=True, scramble_size=1):
         self.renderViews = views
         self.renderFlat = flat
@@ -106,8 +108,8 @@ class CubeEnv3x3(gym.Env):
         return ACTION_LOOKUP[action].name
 
     def _reward(self):
-        reward = self.score - self.before_score
-        if reward > 0:
+        diff_score = self.score - self.before_score
+        if diff_score > 0:
             return 1
         else:
             return 0
@@ -121,6 +123,10 @@ class CubeEnv3x3(gym.Env):
         state_vec = sticker.flatten()
         # from sticker to one-hot
         return copy.deepcopy(to_categorical(state_vec, self.num_color))
+    def state_shape(self):
+        return self.state.shape
+    def action_list(self):
+        return self.action_list
 
 
 ACTION_LOOKUP = {
