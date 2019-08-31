@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+from tensorflow.keras.utils import to_categorical
+
 import gym
 from gym import spaces
 from gym.utils import seeding
@@ -24,6 +26,9 @@ class CubeEnv3x3(gym.Env):
         self.scrambleSize = 1
         self.config()
         self.seed()
+        self.state = _state()
+        self.colordict = self.cube.colordict
+        self.num_color = len(self.colordict.keys())
 
     def config(self, views=True, flat=True, render=True, scramble_size=1):
         self.renderViews = views
@@ -111,9 +116,9 @@ class CubeEnv3x3(gym.Env):
     def _state(self):
         # get sticker
         sticker = self.cube.get_sticker()
+        state_vec = sticker.flatten()
         # from sticker to one-hot
-        state = np.identity(6)[sticker.reshape(-1)].astype('uint8')
-        return state
+        return copy.deepcopy(to_categorical(state_vec, self.num_color))
 
 
 ACTION_LOOKUP = {
