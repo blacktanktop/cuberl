@@ -1,3 +1,5 @@
+import copy
+
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -26,9 +28,9 @@ class CubeEnv3x3(gym.Env):
         self.scrambleSize = 1
         self.config()
         self.seed()
-        self.state = _state()
         self.colordict = self.cube.colordict
         self.num_color = len(self.colordict.keys())
+        self.state = self._state()
 
     def config(self, views=True, flat=True, render=True, scramble_size=1):
         self.renderViews = views
