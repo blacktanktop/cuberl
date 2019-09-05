@@ -27,7 +27,7 @@ class CubeEnv3x3(gym.Env):
         self.renderCube = True
         self.scrambleSize = 1
         self.config()
-        self.seed()
+        self.seed(1)
         self.colordict = self.cube.colordict
         self.num_color = len(self.colordict.keys())
         self.state = self._state()
@@ -99,10 +99,15 @@ class CubeEnv3x3(gym.Env):
             action = ACTION_LOOKUP[np.random.randint(len(ACTION_LOOKUP.keys()))]
             if self.scramble_check(action, self.scramble_list):
                 self.scramble_list.append(action.name)
-                print(self.scramble_list)
+                #print("scramble action : ", self.scramble_list)
                 self.cube.action2move(action)
                 t += 1
     
+    #@staticmethod
+    def get_scramble_action(self):
+        scramble_action = self.scramble_list
+        return scramble_action
+
     @staticmethod
     def action2name(action):
         return ACTION_LOOKUP[action].name
